@@ -1,0 +1,17 @@
+substitutions:
+  name: radar-hallway
+  friendly_name: Radar Hallway
+  
+packages:
+  xio.radar: github://Xioshock/configs/radar/radar.yaml
+
+esphome:
+  name: ${name}
+  name_add_mac_suffix: false
+  friendly_name: ${friendly_name}
+
+api:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
