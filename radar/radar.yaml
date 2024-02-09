@@ -10,7 +10,7 @@ esphome:
   friendly_name: $friendly_name
   name_add_mac_suffix: true
   project:
-    name: ${friendly_name}.
+    name: xio.$devicename
     version: "${project_version}"
   on_boot:    #LD1125H Initial Setting
     priority: -200
@@ -41,9 +41,6 @@ esphome:
 #   sda: GPIO19
 #   scl: GPIO21
 #   scan: True
-
-dashboard_import:
-  package_import_url: github://Xioshock/configs/radar/radar.yaml
 
 esp32:
   board: esp32-c3-devkitm-1
