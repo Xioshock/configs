@@ -1,0 +1,170 @@
+esphome:
+  name: "fingerprint-sensor"
+  friendly_name: Fingerprint Sensor
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino #esp-idf
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/ssieb/custom_components #Thanks for @ssieb components.
+    components: [ serial ]
+
+logger:
+ota:
+captive_portal:
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  power_save_mode: none
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Fingerprint Sensor AP"
+    password: "wTUSukQyX6MD"
+    
+uart:
+  id: uart_bus
+  rx_pin: GPIO20
+  tx_pin: GPIO21
+  baud_rate: 57600
+
+fingerprint_grow:
+  sensing_pin: GPIO19
+  on_finger_scan_matched:
+    - fingerprint_grow.aura_led_control:
+        state: BREATHING
+        speed: 200
+        color: BLUE
+        count: 1
+    - homeassistant.event:
+        event: esphome.finger_matched
+        data:
+          finger_id: !lambda 'return finger_id;'
+          confidence: !lambda 'return confidence;'
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Authorized"
+    - delay: 3000ms
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Waiting"
+  on_finger_scan_unmatched:
+    - fingerprint_grow.aura_led_control:
+        state: FLASHING
+        speed: 25
+        color: RED
+        count: 2
+    - homeassistant.event:
+        event: esphome.finger_unmatched
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Unauthorized"
+    - delay: 3000ms
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Waiting"
+  on_enrollment_scan:
+    - fingerprint_grow.aura_led_control:
+        state: FLASHING
+        speed: 25
+        color: BLUE
+        count: 2
+    - fingerprint_grow.aura_led_control:
+        state: ALWAYS_ON
+        speed: 0
+        color: PURPLE
+        count: 0
+    - homeassistant.event:
+        event: esphome.enrollment_scan
+        data:
+          finger_id: !lambda 'return finger_id;'
+          scan_num: !lambda 'return scan_num;'
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Fingerprint acquired"
+  on_enrollment_done:
+    - fingerprint_grow.aura_led_control:
+        state: BREATHING
+        speed: 100
+        color: BLUE
+        count: 2
+    - homeassistant.event:
+        event: esphome.enrollment_done
+        data:
+          finger_id: !lambda 'return finger_id;'
+    - delay: 3000ms
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Waiting"
+  on_enrollment_failed:
+    - fingerprint_grow.aura_led_control:
+        state: FLASHING
+        speed: 25
+        color: RED
+        count: 4
+    - homeassistant.event:
+        event: esphome.enrollment_failed
+        data:
+          finger_id: !lambda 'return finger_id;'
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Fingerprint acquisition failed"
+    - delay: 3000ms
+    - text_sensor.template.publish:
+        id: fingerprint_state
+        state: "Waiting"
+
+api:
+  services:
+  - service: enroll
+    variables:
+      finger_id: int
+      num_scans: int
+    then:
+      - fingerprint_grow.enroll:
+          finger_id: !lambda 'return finger_id;'
+          num_scans: !lambda 'return num_scans;'
+  - service: cancel_enroll
+    then:
+      - fingerprint_grow.cancel_enroll:
+  - service: delete
+    variables:
+      finger_id: int
+    then:
+      - fingerprint_grow.delete:
+          finger_id: !lambda 'return finger_id;'
+  - service: delete_all
+    then:
+      - fingerprint_grow.delete_all:
+
+text_sensor:
+  - platform: template
+    id: fingerprint_state
+    name: "State"
+
+binary_sensor:
+  - platform: fingerprint_grow
+    id: fingerprint_enrolling
+    name: "Enrolling"
+
+sensor:
+  - platform: fingerprint_grow
+    fingerprint_count:
+      name: "Count fingerprints"
+    last_finger_id:
+      name: "Last fingerprint ID"
+    last_confidence:
+      name: "Last fingerprint reliability"
+    status:
+      name: "Footprint status"
+    capacity:
+      name: "Footprint Capacity"
+
+switch: 
+  - platform: restart 
+    name: Restart
