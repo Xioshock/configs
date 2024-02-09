@@ -2,16 +2,16 @@ substitutions:
   devicename: "radar"
   friendly_name: "Radar"
   # update_time: 30s
-  # project: "radar"
-  # version: "1.0"
+  project_name: "radar"
+  version: "1.0"
   
 esphome:
   name: $devicename
   friendly_name: $friendly_name
-  # name_add_mac_suffix: true
-  # project:
-  #   name: xio.$project
-  #   version: $version
+  name_add_mac_suffix: true
+  project:
+    name: xio.$project_name
+    version: $version
   on_boot:    #LD1125H Initial Setting
     priority: -200
     then:
@@ -53,6 +53,10 @@ external_components:
     components: [ serial ]
 
 captive_portal:
+
+dashboard_import:
+  package_import_url: github://Xioshock/configs/radar/radar.yaml
+  # import_full_config: false
 
 api:
   
