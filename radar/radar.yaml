@@ -1,21 +1,17 @@
-captive_portal:
-api:
-ota:
-
 substitutions:
   devicename: "radar"
   friendly_name: "Radar"
-  update_time: 30s
-  project: "radar"
-  version: "1.0"
+  # update_time: 30s
+  # project: "radar"
+  # version: "1.0"
   
 esphome:
   name: $devicename
   friendly_name: $friendly_name
   # name_add_mac_suffix: true
-  project:
-    name: xio.$project
-    version: $version
+  # project:
+  #   name: xio.$project
+  #   version: $version
   on_boot:    #LD1125H Initial Setting
     priority: -200
     then:
@@ -49,19 +45,22 @@ esphome:
 esp32:
   board: esp32-c3-devkitm-1
   framework:
-    type: esp-idf #arduino
+    type: arduino
 external_components:
   - source:
       type: git
       url: https://github.com/ssieb/custom_components #Thanks for @ssieb components.
     components: [ serial ]
 
+captive_portal:
+
+api:
+  
+ota:
+
 logger:
   #level: INFO  #You Can Use "INFO" Level
   baud_rate: 0
-
-  # encryption:
-    # key: "XeGUgoL9B/Kfp4FexPk7alNIrOSu7kM5lBJfoc/hTQQ="
 
 wifi:
   ssid: !secret wifi_ssid
@@ -109,8 +108,8 @@ globals:
 #   pin:
 #     number: GPIO8 #ESP32 OnBroad LED
 #     inverted: false
-#web_server:   #Avoid Using Web Server To Prevent Hang
-#  port: 80
+web_server:   #Avoid Using Web Server To Prevent Hang
+ port: 80
 
 interval:
   - interval: 1s #Clearance Scan Time
