@@ -6,14 +6,16 @@ substitutions:
   devicename: "radar"
   friendly_name: "Radar"
   update_time: 30s
+  project: "radar"
+  version: "1.0"
   
 esphome:
   name: $devicename
   friendly_name: $friendly_name
-  name_add_mac_suffix: true
+  # name_add_mac_suffix: true
   project:
-    name: xio.$devicename
-    version: "1.0"
+    name: xio.$project
+    version: $version
   on_boot:    #LD1125H Initial Setting
     priority: -200
     then:
@@ -321,7 +323,7 @@ text_sensor:
     id: occupancy
     internal: True
     icon: "mdi:motion-sensor"
-    
+
 binary_sensor:
   - platform: template
     name: ${friendly_name} Presence
