@@ -1,17 +1,19 @@
 captive_portal:
 api:
 ota:
+
 substitutions:
   devicename: "radar"
   friendly_name: "Radar"
   update_time: 30s
+  
 esphome:
   name: $devicename
   friendly_name: $friendly_name
   name_add_mac_suffix: true
   project:
     name: xio.$devicename
-    version: "${project_version}"
+    version: "1.0"
   on_boot:    #LD1125H Initial Setting
     priority: -200
     then:
@@ -51,6 +53,7 @@ external_components:
       type: git
       url: https://github.com/ssieb/custom_components #Thanks for @ssieb components.
     components: [ serial ]
+
 logger:
   #level: INFO  #You Can Use "INFO" Level
   baud_rate: 0
@@ -68,6 +71,7 @@ wifi:
 #    gateway: !secret ip_gateway
 #    subnet: !secret ip_subnet
 #    dns1: !secret ip_dns1
+
 uart:
   id: uart_bus
   rx_pin: GPIO20  #For ESP32, you can use any pin, Recommend Use UART_2, Don't use UART_0, It might Cause Boot Fail or System Hang
@@ -85,6 +89,7 @@ uart:
     #   delimiter: "\n"
     # sequence:
     #   - lambda: UARTDebug::log_string(direction, bytes);
+
 globals:
   - id: last_time
     type: time_t
@@ -104,6 +109,7 @@ globals:
 #     inverted: false
 #web_server:   #Avoid Using Web Server To Prevent Hang
 #  port: 80
+
 interval:
   - interval: 1s #Clearance Scan Time
     setup_priority: -200
@@ -123,6 +129,7 @@ interval:
             id(motion).publish_state(false);
           }
         }
+
 number:
   - platform: template
     name: Close Sensitivity #mth1 is 0~2.8m Sensitivity.
@@ -215,6 +222,7 @@ number:
     min_value: 0.5
     max_value: 10
     step: 0.5
+
 sensor:
   # - platform: bme280
   #   temperature:
@@ -252,6 +260,7 @@ sensor:
         window_size: 8
         send_every: 2
     - heartbeat: 0.2s
+
 text_sensor:
   - platform: serial
     uart_id: uart_bus
@@ -312,6 +321,7 @@ text_sensor:
     id: occupancy
     internal: True
     icon: "mdi:motion-sensor"
+    
 binary_sensor:
   - platform: template
     name: ${friendly_name} Presence
