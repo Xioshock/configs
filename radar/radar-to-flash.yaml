@@ -6,3 +6,4 @@ substitutions:
   
 packages:
   xio.radar: github://Xioshock/configs/radar/radar.yaml
+  refresh: 0s
