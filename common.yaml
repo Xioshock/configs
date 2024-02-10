@@ -1,7 +1,7 @@
 substitutions:
-  devicename: "radar"
-  friendly_name: "Radar"
-  project_name: "radar"
+  name: "device"
+  friendly_name: "Device"
+  project_name: "device"
   version: "1.0"
   board: esp32-c3-devkitm-1
 
@@ -9,6 +9,13 @@ esp32:
   board: $board
   framework:
     type: arduino
+
+esphome:
+  name: $name
+  friendly_name: $friendly_name
+  project:
+    name: xio.$project_name
+    version: $version
 
 captive_portal:
 
@@ -25,6 +32,8 @@ wifi:
   password: $wifi_password
   power_save_mode: none
   ap:
+    ssid: "${friendly_name} AP"
+    password: "${wifi_password}"
 #  manual_ip:
 #    static_ip: !secret ip_esp32mastbath
 #    gateway: !secret ip_gateway

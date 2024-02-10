@@ -1,16 +1,8 @@
 substitutions:
-  name: "radar"
-  friendly_name: "Radar"
   project_name: "radar"
   version: "1.0"
   
 esphome:
-  name: $name
-  friendly_name: $friendly_name
-  name_add_mac_suffix: true
-  project:
-    name: xio.$project_name
-    version: $version
   on_boot:    #LD1125H Initial Setting
     priority: -200
     then:
