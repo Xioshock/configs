@@ -1,0 +1,35 @@
+substitutions:
+  devicename: "radar"
+  friendly_name: "Radar"
+  project_name: "radar"
+  version: "1.0"
+  board: esp32-c3-devkitm-1
+
+esp32:
+  board: $board
+  framework:
+    type: arduino
+
+captive_portal:
+
+api:
+  
+ota:
+
+logger:
+  #level: INFO  #You Can Use "INFO" Level
+  baud_rate: 0
+
+wifi:
+  ssid: $wifi_ssid
+  password: $wifi_password
+  power_save_mode: none
+  ap:
+#  manual_ip:
+#    static_ip: !secret ip_esp32mastbath
+#    gateway: !secret ip_gateway
+#    subnet: !secret ip_subnet
+#    dns1: !secret ip_dns1
+
+web_server:   #Avoid Using Web Server To Prevent Hang
+  port: 80
