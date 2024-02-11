@@ -33,7 +33,7 @@ dashboard_import:
 
 packages:
   remote_package:
-    url: github://Xioshock/configs
+    url: https://github.com/Xioshock/configs
     ref: main # optional
     files: [common.yaml]
     refresh: 0s
