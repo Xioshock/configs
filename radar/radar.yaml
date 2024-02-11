@@ -27,10 +27,6 @@ esphome:
             std::string rmaxst = "rmax=" + str_sprintf("%.1f",id(max_distance).state) +"\r\n";
             return std::vector<uint8_t>(rmaxst.begin(), rmaxst.end());
 
-dashboard_import:
-  package_import_url: github://Xioshock/configs/radar/radar.yaml
-  # import_full_config: false
-
 packages:
   xio.common:
     url: https://github.com/Xioshock/configs
@@ -47,7 +43,7 @@ packages:
 external_components:
   - source:
       type: git
-      url: https://github.com/ssieb/custom_components #Thanks for @ssieb components.
+      url: https://github.com/ssieb/custom_components
     components: [ serial ]
 
 uart:
@@ -79,10 +75,6 @@ globals:
     type: bool
     restore_value: no
     initial_value: "false"
-# status_led:
-#   pin:
-#     number: GPIO8 #ESP32 OnBroad LED
-#     inverted: false
 
 interval:
   - interval: 1s #Clearance Scan Time
