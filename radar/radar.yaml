@@ -154,7 +154,7 @@ number:
   - platform: template
     name: Max Distance #rmax is max detection distance.
     id: max_distance
-    icon: "mdi:cogs"
+    icon: "mdi:signal-distance-variant"
     optimistic: true
     restore_value: true #If you don't want to store the setting at ESP, set it to false.
     initial_value: "8" #Default rmax Setting
@@ -171,7 +171,7 @@ number:
   - platform: template
     name: Presence Timeout
     id: presence_timeout
-    icon: "mdi:cogs"
+    icon: "mdi:timer-cog"
     optimistic: true
     restore_value: true #If you don't want to store the setting at ESP, set it to false.
     initial_value: "5" #LD1125H Mov/Occ > Clearence Time Here
@@ -181,7 +181,7 @@ number:
   - platform: template
     name: Motion Timeout
     id: motion_timeout
-    icon: "mdi:cogs"
+    icon: "mdi:timer-cog"
     optimistic: true
     restore_value: true #If you don't want to store the setting at ESP, set it to false.
     initial_value: "1" #LD1125H Mov > Occ Time Here

@@ -45,13 +45,13 @@ web_server:   #Avoid Using Web Server To Prevent Hang
 
 binary_sensor:
   - platform: status
-    name: "${friendly_name} Device Status"
+    name: "Device Status"
 
 sensor:
   - platform: uptime
-    name: "${friendly_name} Uptime"
+    name: "Uptime"
   - platform: wifi_signal
-    name: "${friendly_name} WiFi Signal"
+    name: "WiFi Signal"
     update_interval: 60s
 
 switch: 
