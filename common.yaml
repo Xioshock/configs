@@ -4,6 +4,7 @@ substitutions:
   project_name: "device"
   version: "1.0"
   board: esp32-c3-devkitm-1
+  encryption: "aaa"
 
 esp32:
   board: $board
@@ -21,7 +22,7 @@ captive_portal:
 
 api:
   encryption:
-    key: $wifi_password
+    key: $encryption
 
 ota:
   platform: esphome
