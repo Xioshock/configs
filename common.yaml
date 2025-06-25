@@ -20,6 +20,8 @@ esphome:
 captive_portal:
 
 api:
+  encryption:
+    key: $wifi_password
 
 ota:
   platform: esphome
