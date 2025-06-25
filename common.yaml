@@ -20,8 +20,9 @@ esphome:
 captive_portal:
 
 api:
-  
+
 ota:
+  platform: esphome
 
 logger:
   #level: INFO  #You Can Use "INFO" Level
@@ -40,7 +41,7 @@ wifi:
 #    subnet: !secret ip_subnet
 #    dns1: !secret ip_dns1
 
-web_server:   #Avoid Using Web Server To Prevent Hang
+web_server: #Avoid Using Web Server To Prevent Hang
   port: 80
 
 binary_sensor:
@@ -54,6 +55,6 @@ sensor:
     name: "WiFi Signal"
     update_interval: 60s
 
-switch: 
-  - platform: restart 
+switch:
+  - platform: restart
     name: Restart
