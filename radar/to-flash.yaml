@@ -1,6 +1,6 @@
 substitutions:
-  name: radar-kitchen
-  friendly_name: Radar Kitchen
+  name: radar
+  friendly_name: Radar
   wifi_ssid: !secret wifi_ssid
   wifi_password: !secret wifi_password
   
