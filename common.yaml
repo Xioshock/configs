@@ -28,7 +28,7 @@ ota:
   platform: esphome
 
 logger:
-  #level: INFO  #You Can Use "INFO" Level
+  level: INFO #You Can Use "INFO" Level
   baud_rate: 0
 
 wifi:
@@ -44,8 +44,8 @@ wifi:
 #    subnet: !secret ip_subnet
 #    dns1: !secret ip_dns1
 
-web_server: #Avoid Using Web Server To Prevent Hang
-  port: 80
+#web_server: #Avoid Using Web Server To Prevent Hang
+#  port: 80
 
 binary_sensor:
   - platform: status
