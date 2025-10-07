@@ -4,7 +4,6 @@ substitutions:
   project_name: "device"
   version: "1.0"
   variant: esp32c3
-  encryption: "aaa"
 
 esp32:
   variant: $variant
@@ -21,15 +20,13 @@ esphome:
 captive_portal:
 
 api:
-  encryption:
-    key: $encryption
 
 ota:
   platform: esphome
 
-logger:
-  level: INFO #You Can Use "INFO" Level
-  baud_rate: 0
+#logger:
+#level: INFO #You Can Use "INFO" Level
+#baud_rate: 0
 
 wifi:
   ssid: $wifi_ssid
